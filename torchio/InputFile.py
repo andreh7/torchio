@@ -1,15 +1,5 @@
 #!/usr/bin/env python
 
-# number to identify types in
-# serialized files
-MAGIC_NIL            = 0
-MAGIC_NUMBER         = 1
-MAGIC_STRING         = 2
-MAGIC_TABLE          = 3
-MAGIC_TORCH          = 4
-MAGIC_BOOLEAN        = 5
-MAGIC_FUNCTION       = 6
-MAGIC_RECUR_FUNCTION = 8
 
 import re
 
@@ -17,6 +7,7 @@ import nn
 import torch
 
 from .BinaryFileReader import BinaryFileReader
+import iocommon
 
 #----------------------------------------------------------------------
 
@@ -168,10 +159,10 @@ class InputFile:
     def readObject(self):
         typeNumber = self.readInt()
 
-        if typeNumber == MAGIC_NIL:
+        if typeNumber == iocommon.MAGIC_NIL:
             return None
 
-        if typeNumber == MAGIC_NUMBER:
+        if typeNumber == iocommon.MAGIC_NUMBER:
             # try to convert to int if possible
             value = self.readDouble()
 
@@ -181,15 +172,15 @@ class InputFile:
             else:
                 return value
 
-        if typeNumber == MAGIC_STRING:
+        if typeNumber == iocommon.MAGIC_STRING:
             return self.readString()
 
-        if typeNumber == MAGIC_BOOLEAN:
+        if typeNumber == iocommon.MAGIC_BOOLEAN:
             return self.readBool()
 
         
         # check object index
-        if typeNumber in (MAGIC_TORCH, MAGIC_TABLE):
+        if typeNumber in (iocommon.MAGIC_TORCH, iocommon.MAGIC_TABLE):
             objectIndex = self.readInt()
 
             # check the cache
@@ -199,10 +190,10 @@ class InputFile:
                 # index
                 return self.objectCache[objectIndex]
 
-        if typeNumber == MAGIC_TORCH:
+        if typeNumber == iocommon.MAGIC_TORCH:
             return self.readTorchType(objectIndex)
             
-        if typeNumber == MAGIC_TABLE:
+        if typeNumber == iocommon.MAGIC_TABLE:
             return self.readTable(objectIndex)
         
         raise Exception("unknown type number %d" % typeNumber)
