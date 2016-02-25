@@ -1,6 +1,6 @@
 # TorchIO
 
-A python library for reading serialized torch objects from python.
+A python library for reading and writing serialized torch objects from python.
 
 
 
