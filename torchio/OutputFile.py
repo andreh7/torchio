@@ -179,7 +179,7 @@ class OutputFile:
 
         if isinstance(obj, str):
             self.writeInt(iocommon.MAGIC_STRING)
-            self.writeString(str)
+            self.writeString(obj)
             return
 
         if isinstance(obj, dict):
