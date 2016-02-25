@@ -50,8 +50,6 @@ class GenericTorchTensor(GenericTorchObject):
 
     def customWriter(self, outputFile):
 
-        print "in customWriter"
-        
         outputFile.writeInt(self.dimension)
         outputFile.writeLongs(self.size)
         outputFile.writeLongs(self.stride)

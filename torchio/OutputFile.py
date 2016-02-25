@@ -85,8 +85,6 @@ class OutputFile:
 
         objectIndex, isNew = self.__getCacheIndex(obj)
 
-        print "isNew=",isNew
-        
         self.writeInt(objectIndex)
 
         if not isNew:
