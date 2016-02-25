@@ -146,7 +146,7 @@ class OutputFile:
         objectIndex, isNew = self.__getCacheIndex(obj)
         self.writeInt(objectIndex)
                 
-        if not isNew:
+        if isNew:
             # size of the table
             self.writeInt(len(obj))
 
