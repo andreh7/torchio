@@ -47,6 +47,24 @@ class GenericTorchTensor(GenericTorchObject):
         self.storage = inputFile.readObject()
 
     #----------------------------------------
+
+    def customWriter(self, outputFile):
+
+        print "in customWriter"
+        
+        outputFile.writeInt(self.dimension)
+        outputFile.writeLongs(self.size)
+        outputFile.writeLongs(self.stride)
+
+        # TODO: the torch version decreases this by one because lua
+        #       indices start at 1 when reading. When writing
+        #       we must to the opposite
+        outputFile.writeLong(self.storageOffset + 1)
+
+        # must be implemented in inheriting classes
+        self.writeStorage(outputFile)
+
+    #----------------------------------------
     
     def asndarray(self):
         # TODO: see http://stackoverflow.com/questions/4365964/numpy-efficiently-reading-a-large-array
