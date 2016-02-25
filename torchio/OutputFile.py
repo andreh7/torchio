@@ -118,23 +118,18 @@ class OutputFile:
 
     def __getCacheIndex(self, obj):
 
-        print "called __getCacheIndex with obj=" + str(obj)
-
         # returns the index and True if
         # this was not yet in the cache
 
         theId = id(obj)
 
         if self.objectCache.has_key(theId):
-            print "returning",self.objectCache[theId], False
             return self.objectCache[theId], False
 
         # we start the indexing at one
         nextIndex = len(self.objectCache) + 1
         self.objectCache[theId] = nextIndex
 
-        print "returning",self.objectCache[theId], True
-        
         return nextIndex, True
 
     #----------------------------------------
