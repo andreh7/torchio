@@ -27,3 +27,6 @@ class ReLU(GenericTorchObject):
 
 class View(GenericTorchObject):
     pass
+
+class Sigmoid(GenericTorchObject):
+    pass
