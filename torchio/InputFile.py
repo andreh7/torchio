@@ -38,14 +38,19 @@ class InputFile:
     
     def __init__(self, infile, mode):
 
+        if isinstance(infile, str):
+            # open the file ourselves, assume infile is the name
+            # of a file to be opened for reading
+            self.infile = open(infile, "r")
+        else:
+            # assume infile is already an underlying file like object
+            # from which we want to read
+            self.infile = infile
+
         if mode == 'binary':
-            self.reader = BinaryFileReader(infile)
+            self.reader = BinaryFileReader(self.infile)
         else:
             raise Exception("mode " + str(mode) + " not supported")
-
-        # infile is the underlying file like object
-        # from which we want to read
-        self.infile = infile
 
         # maps from object index to object
         self.objectCache = {}
