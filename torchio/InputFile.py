@@ -41,7 +41,19 @@ class InputFile:
         if isinstance(infile, str):
             # open the file ourselves, assume infile is the name
             # of a file to be opened for reading
-            self.infile = open(infile, "r")
+            
+            if infile.endswith(".gz"):
+
+                import gzip
+                self.infile = gzip.open(infile, "r")
+
+            elif infile.endswith(".bz2"):
+                import bz2
+                self.infile = bz2.BZ2File(infile)
+            
+            else:
+                self.infile = open(infile, "r")
+
         else:
             # assume infile is already an underlying file like object
             # from which we want to read
