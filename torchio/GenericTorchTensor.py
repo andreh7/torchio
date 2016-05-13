@@ -27,6 +27,10 @@ class GenericTorchTensor(GenericTorchObject):
         return self.storage.data[combinedIndex]
 
     #----------------------------------------
+    def __len__(self):
+        return self.size[0]
+
+    #----------------------------------------
 
     def linearToIndices(self, linearIndex):
         retval = []
