@@ -69,6 +69,11 @@ class FloatTensor(GenericTorchTensor):
     
 #----------------------------------------------------------------------
 
+class IntTensor(GenericTorchTensor):
+    pass
+    
+#----------------------------------------------------------------------
+
 class ByteTensor(GenericTorchTensor):
     pass
 
@@ -104,6 +109,16 @@ class LongStorage(GenericTorchObject):
         self.size = inputFile.readLong()
         # not sure whether this is right but seems to work
         self.data = [ inputFile.readLong() for i in range(self.size) ]
+
+#----------------------------------------------------------------------
+
+class IntStorage(GenericTorchObject):
+
+    def customReader(self, inputFile):
+        # see e.g. int torch_Storage_(read) in ~/torch/extra/cutorch/torch/generic/Storage.c
+        self.size = inputFile.readLong()
+        # not sure whether this is right but seems to work
+        self.data = [ inputFile.readInt() for i in range(self.size) ]
 
 
 #----------------------------------------------------------------------
