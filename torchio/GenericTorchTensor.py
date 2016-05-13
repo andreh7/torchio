@@ -8,6 +8,11 @@ class GenericTorchTensor(GenericTorchObject):
     def __getitem__(self, indices):
         # see https://github.com/torch/torch7/blob/master/doc/tensor.md
 
+        # support for 1D index
+        if not hasattr(indices, '__len__'):
+            # assume this is a single number
+            indices = [ indices ]
+
         combinedIndex = self.storageOffset
         assert len(indices) == len(self.stride)
 
